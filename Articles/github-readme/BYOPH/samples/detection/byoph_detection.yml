@@ -1,0 +1,153 @@
+# MIT License
+# Copyright (c) 2026 Mr.b3d0u55i (a7t0fwa7)
+# Licensed under the MIT License - See LICENSE-CODE in repository root
+# Source: https://github.com/a7t0fwa7/The-Greys
+
+title: BYOPH - Suspicious Protocol Handler Registration
+id: f8a9b2c3-d4e5-6789-abcd-ef1234567890
+status: experimental
+description: |
+    Detects registration of URL protocol handlers with suspicious commands.
+    Part of the BYOPH (Bring Your Own Protocol Handler) detection series.
+author: Mr.b3d0u55i (a7t0fwa7)
+date: 2024/01/15
+modified: 2026/01/19
+references:
+    - https://attack.mitre.org/techniques/T1218/
+    - https://docs.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa767914(v=vs.85)
+    - https://a7t0fwa7.github.io/The-Greys/byoph/
+tags:
+    - attack.execution
+    - attack.persistence
+    - attack.t1218
+logsource:
+    product: windows
+    category: registry_set
+detection:
+    # Target: Protocol handler command registration
+    selection_path:
+        TargetObject|contains: '\Software\Classes\'
+        TargetObject|endswith: '\shell\open\command'
+    
+    # Suspicious executables in handler commands
+    selection_suspicious_exe:
+        Details|contains:
+            - 'powershell'
+            - 'pwsh'
+            - 'cmd.exe'
+            - 'mshta'
+            - 'wscript'
+            - 'cscript'
+            - 'rundll32'
+            - 'regsvr32'
+    
+    # LOLBins commonly used in attacks
+    selection_lolbins:
+        Details|contains:
+            - 'certutil'
+            - 'bitsadmin'
+            - 'msiexec'
+            - 'curl'
+            - 'wget'
+    
+    # Network indicators
+    selection_network:
+        Details|contains:
+            - 'http://'
+            - 'https://'
+            - 'ftp://'
+    
+    # Suspicious paths
+    selection_paths:
+        Details|contains:
+            - '\Users\Public\'
+            - '\AppData\'
+            - '\Temp\'
+            - '%TEMP%'
+            - '%APPDATA%'
+            - '%USERPROFILE%'
+    
+    # Encoding/obfuscation indicators
+    selection_obfuscation:
+        Details|contains:
+            - '-enc '
+            - '-encoded'
+            - 'FromBase64'
+            - 'IEX'
+            - 'Invoke-Expression'
+    
+    condition: selection_path and (selection_suspicious_exe or selection_lolbins or selection_network or selection_obfuscation)
+    
+falsepositives:
+    - Legitimate software installation
+    - IT automation scripts
+    - Development tools
+level: high
+
+---
+
+title: BYOPH - URL Protocol Value Creation
+id: a1b2c3d4-5678-90ab-cdef-123456789abc
+status: experimental
+description: |
+    Detects creation of the "URL Protocol" registry value which marks a 
+    registry key as a URL protocol handler.
+author: BYOPH Series
+date: 2024/01/15
+tags:
+    - attack.persistence
+logsource:
+    product: windows
+    category: registry_set
+detection:
+    selection:
+        TargetObject|contains: '\Software\Classes\'
+        TargetObject|endswith: 'URL Protocol'
+    filter_known:
+        TargetObject|contains:
+            - '\http'
+            - '\https'
+            - '\mailto'
+            - '\tel'
+            - '\ftp'
+    condition: selection and not filter_known
+falsepositives:
+    - Legitimate application installation
+level: medium
+
+---
+
+title: BYOPH - Handler in User-Writable Location
+id: b2c3d4e5-6789-0abc-def1-23456789abcd
+status: experimental
+description: |
+    Detects protocol handlers pointing to executables in user-writable locations,
+    which is a common indicator of malicious handlers.
+author: BYOPH Series
+date: 2024/01/15
+tags:
+    - attack.execution
+    - attack.persistence
+logsource:
+    product: windows
+    category: registry_set
+detection:
+    selection:
+        TargetObject|contains: 
+            - 'HKCU\Software\Classes\'
+            - 'HKU\S-'
+        TargetObject|endswith: '\shell\open\command'
+    suspicious_location:
+        Details|contains:
+            - '\Users\'
+            - '\AppData\'
+            - '\Downloads\'
+            - '\Desktop\'
+            - '\Documents\'
+            - 'C:\Temp\'
+    condition: selection and suspicious_location
+falsepositives:
+    - Portable applications
+    - User-installed software
+level: medium
+

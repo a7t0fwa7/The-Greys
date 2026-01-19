@@ -1,0 +1,128 @@
+# License
+
+## The Greys - Cybersecurity Education Hub
+
+Copyright (c) 2026 Mr.b3d0u55i (a7t0fwa7)
+
+This repository uses a **dual-license approach** to appropriately license different types of content:
+
+---
+
+## 📜 Dual License Structure
+
+### 1. Code & Software → MIT License
+
+All code, scripts, software, and technical implementations are licensed under the **MIT License**.
+
+**Covered materials:**
+- Code samples and examples
+- Scripts (PowerShell, Bash, Python, etc.)
+- Software tools and utilities
+- Detection rules and queries (Sigma, Sysmon, etc.)
+- Configuration files for technical tools
+- Build scripts and automation
+
+**See:** [LICENSE-CODE](LICENSE-CODE) for full MIT License text.
+
+---
+
+### 2. Educational Content → Creative Commons BY 4.0
+
+All educational and creative content is licensed under **Creative Commons Attribution 4.0 International (CC BY 4.0)**.
+
+**Covered materials:**
+- Articles and blog posts
+- Documentation and guides
+- Diagrams and visual materials
+- Educational materials and tutorials
+- Presentation slides
+- Infographics and illustrations
+- Written explanations and commentary
+
+**See:** [LICENSE-CONTENT](LICENSE-CONTENT) for full CC BY 4.0 License text.
+
+---
+
+## 🎯 Quick Summary
+
+### MIT License (Code)
+✅ Use commercially
+✅ Modify freely
+✅ Distribute
+✅ Sublicense
+⚠️ Include copyright notice
+⚠️ Include license text
+
+### CC BY 4.0 (Content)
+✅ Share and redistribute
+✅ Adapt and remix
+✅ Use commercially
+⚠️ Give appropriate credit
+⚠️ Provide link to license
+⚠️ Indicate if changes were made
+
+---
+
+## 📝 How to Attribute
+
+### For Code (MIT License):
+```
+Copyright (c) 2026 Mr.b3d0u55i (a7t0fwa7)
+Licensed under the MIT License
+```
+
+### For Content (CC BY 4.0):
+```
+"[Content Title]" by Mr.b3d0u55i (a7t0fwa7)
+From: The Greys - Cybersecurity Education Hub
+URL: https://a7t0fwa7.github.io/The-Greys/
+License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+```
+
+---
+
+## ❓ Which License Applies?
+
+**If you're unsure which license applies to a specific file:**
+
+1. **Code files** (`.py`, `.ps1`, `.sh`, `.cpp`, `.yml`, `.xml`, etc.) → MIT License
+2. **Content files** (`.md`, `.html`, diagrams, images, etc.) → CC BY 4.0
+3. **Check the file header** - Many files include license information at the top
+4. **See [LICENSING.md](LICENSING.md)** for detailed guidance
+
+---
+
+## ⚠️ Educational Use Disclaimer
+
+**This repository is for educational and authorized security testing purposes only.**
+
+The author assumes no liability for misuse of this information. Users must:
+- Test only in isolated lab environments
+- Obtain written authorization before testing production systems
+- Follow responsible disclosure practices
+- Comply with all applicable laws and regulations
+
+---
+
+## 🤝 Contributing
+
+By contributing to this repository, you agree that:
+- Your code contributions will be licensed under the MIT License
+- Your content contributions will be licensed under CC BY 4.0
+- You have the right to license your contributions under these terms
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
+
+---
+
+## 📚 Additional Resources
+
+- **Full Licensing Guide:** [LICENSING.md](LICENSING.md)
+- **MIT License Full Text:** [LICENSE-CODE](LICENSE-CODE)
+- **CC BY 4.0 Full Text:** [LICENSE-CONTENT](LICENSE-CONTENT)
+- **MIT License Info:** https://opensource.org/licenses/MIT
+- **CC BY 4.0 Info:** https://creativecommons.org/licenses/by/4.0/
+
+---
+
+**Questions about licensing?** Open an issue on GitHub

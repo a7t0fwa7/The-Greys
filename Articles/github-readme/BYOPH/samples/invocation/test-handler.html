@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<!--
+MIT License
+Copyright (c) 2026 Mr.b3d0u55i (a7t0fwa7)
+Licensed under the MIT License - See LICENSE-CODE in repository root
+Source: https://github.com/a7t0fwa7/The-Greys
+
+For educational and authorized security testing purposes only.
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BYOPH Protocol Handler Test Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #1a1a2e;
+            color: #eee;
+        }
+        h1 { color: #00d4ff; }
+        h2 { color: #ff6b6b; margin-top: 30px; }
+        .warning {
+            background: #ff6b6b;
+            color: #1a1a2e;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .test-section {
+            background: #16213e;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        a {
+            color: #00d4ff;
+            text-decoration: none;
+            padding: 10px 20px;
+            background: #0f3460;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 5px;
+        }
+        a:hover { background: #1a5276; }
+        button {
+            background: #e94560;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #c73e54; }
+        code {
+            background: #0f3460;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-family: 'Consolas', monospace;
+        }
+        .note {
+            font-size: 0.9em;
+            color: #888;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔐 BYOPH Protocol Handler Test Page</h1>
+    
+    <div class="warning">
+        <strong>⚠️ WARNING:</strong> This page is for testing in ISOLATED LAB ENVIRONMENTS only.
+        Ensure you have registered the <code>sample://</code> handler before testing.
+    </div>
+
+    <h2>📋 Prerequisites</h2>
+    <div class="test-section">
+        <p>Before testing, import the handler registration:</p>
+        <code>regedit /s register_notepad_hkcu.reg</code>
+        <p class="note">This registers <code>sample://</code> to open Notepad with the URL as argument.</p>
+    </div>
+
+    <h2>🧪 Test 1: Anchor Tag (href)</h2>
+    <div class="test-section">
+        <p>Click the link below to invoke the handler via HTML anchor:</p>
+        <a href="sample://test-anchor-tag">sample://test-anchor-tag</a>
+        <p class="note">Expected: Notepad opens with "sample://test-anchor-tag" as content.</p>
+    </div>
+
+    <h2>🧪 Test 2: JavaScript window.location</h2>
+    <div class="test-section">
+        <p>Click the button to invoke via JavaScript:</p>
+        <button onclick="window.location='sample://test-javascript'">
+            Invoke via JavaScript
+        </button>
+        <p class="note">Expected: Same as Test 1, triggered by JavaScript.</p>
+    </div>
+
+    <h2>🧪 Test 3: JavaScript window.open</h2>
+    <div class="test-section">
+        <p>Click to invoke via window.open():</p>
+        <button onclick="window.open('sample://test-window-open', '_self')">
+            Invoke via window.open()
+        </button>
+        <p class="note">Some browsers may block this method.</p>
+    </div>
+
+    <h2>🧪 Test 4: URL with Parameters</h2>
+    <div class="test-section">
+        <p>Test with URL parameters:</p>
+        <a href="sample://action?param1=value1&param2=value2">
+            sample://action?param1=value1&param2=value2
+        </a>
+        <p class="note">Observe how parameters are passed to the handler.</p>
+    </div>
+
+    <h2>🧪 Test 5: URL with Path</h2>
+    <div class="test-section">
+        <p>Test with path-like structure:</p>
+        <a href="sample://path/to/resource">sample://path/to/resource</a>
+        <p class="note">Observe how paths are handled.</p>
+    </div>
+
+    <h2>🧹 Cleanup</h2>
+    <div class="test-section">
+        <p>After testing, remove the handler:</p>
+        <code>regedit /s unregister_sample_hkcu.reg</code>
+        <p>Or manually:</p>
+        <code>reg delete "HKCU\Software\Classes\sample" /f</code>
+    </div>
+
+    <h2>📊 Browser Behavior Notes</h2>
+    <div class="test-section">
+        <ul>
+            <li><strong>Chrome:</strong> Shows "Open external application?" prompt</li>
+            <li><strong>Edge:</strong> Similar to Chrome (Chromium-based)</li>
+            <li><strong>Firefox:</strong> May show different prompt style</li>
+            <li><strong>IE/Legacy Edge:</strong> May execute without prompt</li>
+        </ul>
+    </div>
+
+    <footer style="margin-top: 40px; color: #666; font-size: 0.8em;">
+        <p>BYOPH Series - Educational Use Only</p>
+        <p>Part of the LinkedIn article series on Windows Protocol Handler attacks.</p>
+    </footer>
+</body>
+</html>
+

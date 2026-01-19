@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+============================================================================
+BYOPH Series - Sysmon Configuration for Protocol Handler Detection
+============================================================================
+
+MIT License
+Copyright (c) 2026 Mr.b3d0u55i (a7t0fwa7)
+Licensed under the MIT License - See LICENSE-CODE in repository root
+Source: https://github.com/a7t0fwa7/The-Greys
+
+PURPOSE: Detect BYOPH-related activity including:
+  - Protocol handler registration (registry events)
+  - Suspicious process creation from browsers
+  - Network connections from handler processes
+
+USAGE:
+  sysmon -c byoph_sysmon_config.xml
+
+NOTE: Merge these rules into your existing Sysmon configuration.
+      This is a focused config for BYOPH detection, not a complete config.
+
+WARNING: Test in non-production before deployment!
+         For educational and authorized security testing purposes only.
+============================================================================
+-->
+
+<Sysmon schemaversion="4.90">
+    <HashAlgorithms>SHA256</HashAlgorithms>
+    
+    <EventFiltering>
+        
+        <!-- ================================================================
+             REGISTRY EVENTS - Protocol Handler Registration
+             Event IDs: 12 (Create/Delete), 13 (Value Set), 14 (Rename)
+             ================================================================ -->
+        
+        <RuleGroup name="BYOPH-Registry" groupRelation="or">
+            <!-- Detect URL Protocol value creation -->
+            <RegistryEvent onmatch="include">
+                <TargetObject condition="contains">\Software\Classes\</TargetObject>
+                <TargetObject condition="end with">URL Protocol</TargetObject>
+            </RegistryEvent>
+            
+            <!-- Detect shell\open\command modifications -->
+            <RegistryEvent onmatch="include">
+                <TargetObject condition="contains">\Software\Classes\</TargetObject>
+                <TargetObject condition="contains">\shell\open\command</TargetObject>
+            </RegistryEvent>
+            
+            <!-- Detect new scheme keys in HKCU -->
+            <RegistryEvent onmatch="include">
+                <TargetObject condition="begin with">HKCU\Software\Classes\</TargetObject>
+                <EventType condition="is">CreateKey</EventType>
+            </RegistryEvent>
+        </RuleGroup>
+        
+        <!-- Exclude known legitimate handlers (tune for your environment) -->
+        <RuleGroup name="BYOPH-Registry-Exclusions" groupRelation="or">
+            <RegistryEvent onmatch="exclude">
+                <TargetObject condition="contains">\http</TargetObject>
+                <TargetObject condition="contains">\https</TargetObject>
+                <TargetObject condition="contains">\mailto</TargetObject>
+                <TargetObject condition="contains">\ms-</TargetObject>
+            </RegistryEvent>
+        </RuleGroup>
+        
+        <!-- ================================================================
+             PROCESS CREATION - Browser Child Processes
+             Event ID: 1
+             ================================================================ -->
+        
+        <RuleGroup name="BYOPH-ProcessCreate" groupRelation="or">
+            <!-- Chrome spawning suspicious children -->
+            <ProcessCreate onmatch="include">
+                <ParentImage condition="end with">chrome.exe</ParentImage>
+            </ProcessCreate>
+            
+            <!-- Edge spawning suspicious children -->
+            <ProcessCreate onmatch="include">
+                <ParentImage condition="end with">msedge.exe</ParentImage>
+            </ProcessCreate>
+            
+            <!-- Firefox spawning suspicious children -->
+            <ProcessCreate onmatch="include">
+                <ParentImage condition="end with">firefox.exe</ParentImage>
+            </ProcessCreate>
+            
+            <!-- Office apps spawning suspicious children -->
+            <ProcessCreate onmatch="include">
+                <ParentImage condition="end with">WINWORD.EXE</ParentImage>
+            </ProcessCreate>
+            <ProcessCreate onmatch="include">
+                <ParentImage condition="end with">EXCEL.EXE</ParentImage>
+            </ProcessCreate>
+            <ProcessCreate onmatch="include">
+                <ParentImage condition="end with">POWERPNT.EXE</ParentImage>
+            </ProcessCreate>
+            
+            <!-- PDF readers spawning children -->
+            <ProcessCreate onmatch="include">
+                <ParentImage condition="end with">AcroRd32.exe</ParentImage>
+            </ProcessCreate>
+            <ProcessCreate onmatch="include">
+                <ParentImage condition="end with">Acrobat.exe</ParentImage>
+            </ProcessCreate>
+        </RuleGroup>
+        
+        <!-- ================================================================
+             NETWORK CONNECTIONS - Handler C2 Communication
+             Event ID: 3
+             ================================================================ -->
+        
+        <RuleGroup name="BYOPH-Network" groupRelation="or">
+            <!-- Connections from user-writable paths -->
+            <NetworkConnect onmatch="include">
+                <Image condition="contains">\Users\</Image>
+                <Image condition="contains">\AppData\</Image>
+            </NetworkConnect>
+            
+            <!-- Connections from temp directories -->
+            <NetworkConnect onmatch="include">
+                <Image condition="contains">\Temp\</Image>
+            </NetworkConnect>
+        </RuleGroup>
+        
+    </EventFiltering>
+</Sysmon>
+

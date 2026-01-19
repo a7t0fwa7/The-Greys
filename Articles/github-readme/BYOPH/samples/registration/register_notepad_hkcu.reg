@@ -1,0 +1,35 @@
+Windows Registry Editor Version 5.00
+
+; ============================================================================
+; BYOPH Series - Sample Handler Registration (HKCU - Per User)
+; ============================================================================
+;
+; MIT License
+; Copyright (c) 2026 Mr.b3d0u55i (a7t0fwa7)
+; Licensed under the MIT License - See LICENSE-CODE in repository root
+; Source: https://github.com/a7t0fwa7/The-Greys
+;
+; PURPOSE: Registers a benign protocol handler using Notepad
+; SCOPE: Current user only (no admin required)
+; HANDLER: sample://
+;
+; USAGE:
+;   1. Double-click this file to import
+;   2. Test: Open browser and navigate to sample://hello
+;   3. Cleanup: Import unregister_sample_hkcu.reg
+;
+; WARNING: For educational and authorized security testing purposes only!
+;          Use in isolated lab environments only!
+; ============================================================================
+
+[HKEY_CURRENT_USER\Software\Classes\sample]
+@="URL:Sample Protocol Handler"
+"URL Protocol"=""
+
+[HKEY_CURRENT_USER\Software\Classes\sample\shell]
+
+[HKEY_CURRENT_USER\Software\Classes\sample\shell\open]
+
+[HKEY_CURRENT_USER\Software\Classes\sample\shell\open\command]
+@="\"C:\\Windows\\System32\\notepad.exe\" \"%1\""
+

@@ -1,0 +1,88 @@
+# BYOPH Project - Exclude Blog Post Supporting Content
+# Keep: Code samples, detection rules, technical components
+# Ignore: Articles, diagrams, polls, social media content
+
+# ============================================
+# Blog Post Content - Articles
+# ============================================
+
+# All article markdown files
+#Articles/articles/
+#Articles/articles/*.md
+
+# All diagrams and visual content
+#Articles/diagrams/
+#Articles/diagrams/*.md
+#Articles/diagrams/**/*.png
+#Articles/diagrams/**/*.svg
+#Articles/diagrams/**/*.jpg
+
+# Supporting content for social media
+Articles/supporting-content/
+Articles/supporting-content/*.md
+
+# GitHub README files (if you want to exclude these too)
+#Articles/github-readme/
+#Articles/github-readme/**/*.md
+
+# Alternative: If you want to keep the main Articles README but exclude subdirectories
+# Uncomment the line below and comment out the wildcard patterns above
+# Articles/README.md
+
+# ============================================
+# Optional: Other Common Exclusions
+# ============================================
+
+# Windows thumbnail cache
+Thumbs.db
+ehthumbs.db
+
+# macOS files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor/IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Build artifacts (if applicable)
+*.exe
+*.dll
+*.obj
+*.pdb
+!samples/**/*.exe
+
+# ============================================
+# Jekyll / GitHub Pages
+# ============================================
+
+# Jekyll build output
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+# Ruby dependencies
+Gemfile.lock
+.bundle/
+vendor/
+
+# ============================================
+# Notes
+# ============================================
+# This .gitignore excludes all blog post content while keeping:
+# - Code samples (handlers, registration files, invocation tests)
+# - Detection rules (Sigma, Sysmon configs, hunting queries)
+# - Technical documentation needed for the repository
+#
+# To include specific files, use the ! prefix (e.g., !important-file.md)
+

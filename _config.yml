@@ -1,0 +1,183 @@
+# ============================================================================
+# The Greys - Cybersecurity Education Hub - GitHub Pages Configuration
+# ============================================================================
+
+# Site Settings
+title: "The Greys - Cybersecurity Education Hub"
+description: "Comprehensive cybersecurity education featuring in-depth research, hands-on labs, and detection strategies across multiple security domains"
+author: "Mr.b3d0u55i"
+baseurl: "/The-Greys" # Repository name
+url: "https://a7t0fwa7.github.io" # Your GitHub Pages URL
+
+# Site Tagline
+tagline: "Building a safer digital world through education and collaboration"
+
+# Repository Information
+repository: "a7t0fwa7/The-Greys"
+github_username: "a7t0fwa7-h4ck37m4n"
+
+# Theme Configuration
+theme: jekyll-theme-cayman
+# Alternative themes you can use:
+# theme: jekyll-theme-minimal
+# theme: jekyll-theme-hacker
+# theme: jekyll-theme-slate
+
+# Plugins
+plugins:
+  - jekyll-relative-links
+  - jekyll-optional-front-matter
+  - jekyll-readme-index
+  - jekyll-default-layout
+  - jekyll-titles-from-headings
+
+# Plugin Settings
+relative_links:
+  enabled: true
+  collections: true
+
+titles_from_headings:
+  enabled: true
+  strip_title: true
+  collections: true
+
+# Collections for organizing content
+collections:
+  articles:
+    output: true
+    permalink: /articles/:name/
+  samples:
+    output: true
+    permalink: /samples/:name/
+  detection:
+    output: true
+    permalink: /detection/:name/
+
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+      type: "articles"
+    values:
+      layout: "default"
+      category: "article"
+  - scope:
+      path: ""
+      type: "samples"
+    values:
+      layout: "default"
+      category: "sample"
+  - scope:
+      path: ""
+      type: "detection"
+    values:
+      layout: "default"
+      category: "detection"
+
+# Navigation Menu
+navigation:
+  - title: "Home"
+    url: /
+  - title: "All Series"
+    url: /articles/
+  - title: "BYOPH Series"
+    url: /byoph/
+  - title: "Code Samples"
+    url: /samples/
+  - title: "Detection Rules"
+    url: /detection/
+  - title: "GitHub"
+    url: https://github.com/a7t0fwa7/The-Greys
+
+# Series Information
+series:
+  - name: "BYOPH"
+    title: "Bring Your Own Protocol Handler"
+    status: "Complete"
+    parts: 7
+    level: "Intermediate"
+    platform: "Windows"
+    description: "Windows protocol handler attacks from basics to advanced evasion"
+  - name: "Phishing"
+    title: "Advanced Phishing Techniques"
+    status: "Planned"
+    parts: "TBD"
+    level: "Intermediate"
+    platform: "Cross-Platform"
+    description: "Email security, link analysis, and anti-phishing strategies"
+  - name: "PowerShell"
+    title: "PowerShell Security"
+    status: "Planned"
+    parts: "TBD"
+    level: "Intermediate"
+    platform: "Windows"
+    description: "Script analysis, logging, and offensive PowerShell techniques"
+  - name: "Malware"
+    title: "Malware Analysis Fundamentals"
+    status: "Planned"
+    parts: "TBD"
+    level: "Advanced"
+    platform: "Cross-Platform"
+    description: "Static/dynamic analysis and reverse engineering basics"
+  - name: "ThreatHunting"
+    title: "Threat Hunting Methodologies"
+    status: "Planned"
+    parts: "TBD"
+    level: "Advanced"
+    platform: "Cross-Platform"
+    description: "Hypothesis-driven hunting and data source analysis"
+
+# Build Settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: true
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - Articles/supporting-content/
+  - Articles/github-readme/
+  - "*.sh"
+  - "*.bat"
+  - LICENSE
+  - README.md
+
+# Include files
+include:
+  - _pages
+  - Articles/articles/
+  - Articles/diagrams/
+
+# SEO and Social
+twitter:
+  username: # Add your Twitter handle if you have one
+  card: summary_large_image
+
+social:
+  name: "Mr.b3d0u55i"
+  links:
+    - https://github.com/a7t0fwa7
+
+# Google Analytics (optional - add your tracking ID)
+# google_analytics: UA-XXXXXXXXX-X
+
+# Timezone
+timezone: UTC
+
+# Encoding
+encoding: utf-8
+
+# Sass/SCSS
+sass:
+  style: compressed
+

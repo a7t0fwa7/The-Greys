@@ -1,0 +1,39 @@
+Windows Registry Editor Version 5.00
+
+; ============================================================================
+; BYOPH Series - Sample Handler Registration (HKLM - System Wide)
+; ============================================================================
+;
+; MIT License
+; Copyright (c) 2026 Mr.b3d0u55i (a7t0fwa7)
+; Licensed under the MIT License - See LICENSE-CODE in repository root
+; Source: https://github.com/a7t0fwa7/The-Greys
+;
+; PURPOSE: Registers a benign protocol handler using Notepad (all users)
+; SCOPE: All users on the system
+; REQUIRES: Administrator privileges
+; HANDLER: sample://
+;
+; USAGE:
+;   1. Right-click this file and select "Run as administrator"
+;   2. Click "Yes" to confirm import
+;   3. Test: Open browser and navigate to sample://hello
+;   4. Cleanup: Import unregister_sample_hklm.reg (as admin)
+;
+; NOTE: If HKCU has the same scheme, HKCU takes precedence!
+;
+; WARNING: For educational and authorized security testing purposes only!
+;          Use in isolated lab environments only!
+; ============================================================================
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\sample]
+@="URL:Sample Protocol Handler (System)"
+"URL Protocol"=""
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\sample\shell]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\sample\shell\open]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\sample\shell\open\command]
+@="\"C:\\Windows\\System32\\notepad.exe\" \"%1\""
+

@@ -1,0 +1,20 @@
+Windows Registry Editor Version 5.00
+
+; ============================================================================
+; BYOPH Series - Handler Cleanup (HKCU)
+; ============================================================================
+;
+; MIT License
+; Copyright (c) 2026 Mr.b3d0u55i (a7t0fwa7)
+; Licensed under the MIT License - See LICENSE-CODE in repository root
+; Source: https://github.com/a7t0fwa7/The-Greys
+;
+; PURPOSE: Removes the sample:// protocol handler from HKCU
+;
+; USAGE: Double-click to import and remove the handler
+;
+; NOTE: The [-...] prefix tells regedit to DELETE the key and all subkeys
+; ============================================================================
+
+[-HKEY_CURRENT_USER\Software\Classes\sample]
+
